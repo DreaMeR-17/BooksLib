@@ -130,11 +130,13 @@ namespace BooksLib
             string author = Console.ReadLine();
 
             Console.WriteLine("Напишите год выпуска этой книги.");
-            int yearOfIssue = Convert.ToInt32(Console.ReadLine());
+            int yearOfIssue = ReadInt();
 
             Book book = new Book(number, name, chapter, author, yearOfIssue);
 
             _books.Add(book);
+
+            Console.ReadKey();
         }
 
         public void DeleteBookByNumber()
@@ -149,7 +151,7 @@ namespace BooksLib
             }
             else
             {
-                Console.WriteLine("неверный ввод. ");
+                Console.WriteLine("неверный ввод.");
             }
         }
 
@@ -170,18 +172,12 @@ namespace BooksLib
             Console.WriteLine("Введите название книги чтобы найти всю информацию: ");
             string userInput = Console.ReadLine();
 
-            var foundBooks = _books.FindAll(book => book.Name.IndexOf(userInput) >= 0);
-
-            if (foundBooks.Count > 0)
+            foreach (var book in _books)
             {
-                foreach (var book in foundBooks)
+                if (string.Equals(userInput, book.Name))
                 {
                     Console.WriteLine(book);
                 }
-            }
-            else
-            {
-                Console.WriteLine("Книга не найдена");
             }
         }
 
@@ -192,18 +188,12 @@ namespace BooksLib
             Console.WriteLine("Введите автора книги чтобы найти всю информацию: ");
             string userInput = Console.ReadLine();
 
-            var foundBooks = _books.FindAll(book => book.Author.IndexOf(userInput) >= 0);
-
-            if (foundBooks.Count > 0)
+            foreach (var book in _books)
             {
-                foreach (var book in foundBooks)
+                if (string.Equals(userInput, book.Author))
                 {
                     Console.WriteLine(book);
                 }
-            }
-            else
-            {
-                Console.WriteLine("Автор не найдена");
             }
         }
 
@@ -215,7 +205,7 @@ namespace BooksLib
 
             int userInput = ReadInt();
 
-            foreach (Book book in _books)
+            foreach (var book in _books)
             {
                 if (int.Equals(userInput, book.YearOfIssue))
                 {
